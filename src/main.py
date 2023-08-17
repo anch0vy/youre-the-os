@@ -44,10 +44,6 @@ FPS = 60
 
 
 def handle_process():
-    stats = game_scene.process_manager.get_current_stats()
-    in_use_cpu_number = sum(stats["active_process_count_by_starvation_level"])
-    cpu_number = len(game_scene.process_manager.cpu_list)
-
     processes: list[Process] = [
         proc
         for proc in game_scene.process_manager.children
@@ -55,11 +51,7 @@ def handle_process():
     ]
     tmpProcesses: list[Process] = []
     for process in processes:
-        if (
-            process.is_blocked
-            or process.has_ended
-            or (process.starvation_level == 0 and in_use_cpu_number == cpu_number)
-        ):
+        if process.is_blocked or process.has_ended or process.starvation_level == 0:
             process._yield_cpu()
             continue
 
