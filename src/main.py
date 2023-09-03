@@ -3,6 +3,7 @@ import sys
 from os import path
 from random import random
 
+import pygame
 
 from game_info import TITLE
 from game_objects.page import Page
@@ -139,5 +140,6 @@ async def main():
         clock.tick(FPS)
 
         await asyncio.sleep(0)
+
 
 asyncio.run(main())
